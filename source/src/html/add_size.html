@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="../lib/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../lib/css/amazeui.css" />
+		<link rel="stylesheet" type="text/css" href="../common/common_index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/add_size.css" />
+		<style>
+			@font-face {
+				font-family: 'iconfont';
+				/* project id 627527 */
+				src: url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.eot');
+				src: url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.woff') format('woff'), url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.ttf') format('truetype'), url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.svg#iconfont') format('svg');
+			}
+			
+			.iconfont {
+				font-family: "iconfont" !important;
+				font-size: 16px;
+				font-style: normal;
+				-webkit-font-smoothing: antialiased;
+				-webkit-text-stroke-width: 0.2px;
+				-moz-osx-font-smoothing: grayscale;
+			}
+			
+			input::-webkit-input-placeholder {
+				/*WebKit browsers*/
+				color: #333333;
+			}
+			
+			input::-moz-input-placeholder {
+				/*Mozilla Firefox*/
+				color: #333333;
+			}
+			
+			input::-ms-input-placeholder {
+				/*Internet Explorer*/
+				color: #333333;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="log hide"></div>
+		<div id="content_box">
+			<div class="left">
+				<div class="login_name">
+					<p style="margin-left: 0.1rem;">欢迎您</p>
+					<p style="margin-left: 0.1rem;">
+						<span>000&nbsp;张三&nbsp;总经理</span>
+					</p>
+				</div>
+				<ul class="ul_bar">
+					<li class="ul_bar_active"><i style="margin-right: 0.1rem;" class="iconfont">&#xe66d;</i>货品管理</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe679;</i>采购入库</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67e;</i>往来管理</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe683;</i>门店调入</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe681;</i>门店调出</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67f;</i>销售订货</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe682;</i>销售开单</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe680;</i>盘点管理</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67a;</i>统计分析</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67b;</i>统计图表</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67c;</i>系统设置</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67d;</i>退出系统</li>
+				</ul>
+			</div>
+			<div class="right">
+				<div class="page_title">货品管理-当前库存</div>
+				<div class="tab_bar">
+					<div class="back">返回</div>
+					<div class="save">保存</div>
+				</div>
+				<div class="color_form">
+					<div class="form_flex">
+						<span style="color: #FF9900;" class="span_type">*尺码类别*</span>
+						<div class="choose">
+							<select data-am-selected='{maxHeight:200}' id="js-selected">
+								
+							</select>
+						</div>
+						<div class="add_newColor">&nbsp;<i style="font-size: 0.12rem;color: #FFC219;vertical-align: top;" class="iconfont"></i>&nbsp;新增
+						</div>
+					</div>
+					<div class="form_flex">
+						<span style="color: #FF9900;" class="span_name">名称</span>
+						<input type="text" class="name" />
+					</div>
+					<div class="form_flex">
+						<span class="span_sort">显示顺序</span>
+						<input type="text" class="sort" />&nbsp;<i class="info">输入数字,开单时会按颜色顺序排列</i>
+					</div>
+				</div>
+				<div class="system_info">
+					<span style="float: left;">每日23:00-23:30系统维护期间，请错开时间登录 V.8.3301</span>
+					<span style="float: right;">客服 400-680-5685转2   编号 71726830   159.17.102</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../lib/js/jquery-3.1.1.min.js"></script>
+	<script src="../common/common.js"></script>
+	<script src="../lib/js/amazeui.min.js"></script>
+	<script>
+		var obj = {
+			url: 'goods/size/typechooselist.json',
+			successCallback :function(res){
+				var ohtml = '' ;
+				var data = res['sizeTypeResultList'] ;
+				for(var i = 0,len = data.length; i<len ;i++){
+					ohtml +='<option value="'+ data[i]['name'] +'" data-id = "'+ data[i]['id'] +'">'+ data[i]['name'] +'</option>'
+				}
+				$('#js-selected').append(ohtml)
+			},
+			errorCallback : function(res){
+				console.log(res)
+			}
+		}
+		Ajax(obj)
+		
+		$('.add_newColor').on('click', function() {
+			if(event.target == this) {
+				if($('.add_color_type').length > 0) {
+					$('.add_color_type').remove();
+				} else {
+					dialog.addColorType('.add_newColor');
+				}
+			}
+		})
+		$(".add_newColor").on('click','.add_color_cancel',function() {
+			$('.add_color_type').remove();
+		})
+		$(".add_newColor").on('click','.add_color_sure',function() {
+			var sizeTypeName = $('.text_frame').val() ;
+			var opt = {
+				url: 'goods/size/typeadd.json',
+				param: {
+					sizeTypeName: sizeTypeName
+				},
+				successCallback: function(res) {
+					if(res['status']==200 && res['success']==true){
+						alert('添加成功') ;
+						$('#js-selected').append('<option value="'+ sizeTypeName +'">'+ sizeTypeName +'</option>')
+						$('.add_color_type').remove();
+					}else if(res['status']==200 && res['success']==false){
+						alert(res['errMsg']) ;
+					}
+				},
+				errorCallback: function(res) {
+					console.log(res)
+				}
+			}
+			Ajax(opt)
+		})
+		
+		$('.save').click(function(){
+			var sizeTypeId =  $('#js-selected').find('option:selected').attr('data-id') ;
+			var sizeName = $('.name').val() ;
+			var orderedNumber = $('.sort').val() ;
+			var opt = {
+				url :'goods/size/add.json' ,
+				param : {
+					sizeTypeId : sizeTypeId ,
+					sizeName : sizeName ,
+					orderedNumber :orderedNumber
+				},
+				successCallback : function(res){
+					if(res['status']==200 && res['success']==true){
+						alert('保存成功') ;
+					}else if(res['status']==200 && res['success']==false){
+						alert(res['errMsg']) ;
+					}
+				},
+				errorCallback: function(res) {
+					console.log(res)
+				}
+			}
+			Ajax(opt)
+		})
+		$('.back').click(function(){
+			window.history.back()
+		})
+	</script>
+
+</html>

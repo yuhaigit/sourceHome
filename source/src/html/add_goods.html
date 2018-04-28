@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="../lib/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../lib/css/amazeui.css" />
+		<link rel="stylesheet" type="text/css" href="../common/common_index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/add_goods.css" />
+		<style>
+			@font-face {
+				font-family: 'iconfont';
+				/* project id 627527 */
+				src: url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.eot');
+				src: url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.woff') format('woff'), url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.ttf') format('truetype'), url('//at.alicdn.com/t/font_627527_mulhsrjweadlhaor.svg#iconfont') format('svg');
+			}
+			
+			.iconfont {
+				font-family: "iconfont" !important;
+				font-size: 16px;
+				font-style: normal;
+				-webkit-font-smoothing: antialiased;
+				-webkit-text-stroke-width: 0.2px;
+				-moz-osx-font-smoothing: grayscale;
+			}
+			
+			input::-webkit-input-placeholder {
+				/*WebKit browsers*/
+				color: #333333;
+			}
+			
+			input::-moz-input-placeholder {
+				/*Mozilla Firefox*/
+				color: #333333;
+			}
+			
+			input::-ms-input-placeholder {
+				/*Internet Explorer*/
+				color: #333333;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="log hide"></div>
+		<div id="content_box">
+			<div class="left">
+				<div class="login_name">
+					<p style="margin-left: 0.1rem;">欢迎您</p>
+					<p style="margin-left: 0.1rem;">
+						<span>000&nbsp;张三&nbsp;总经理</span>
+					</p>
+				</div>
+				<ul class="ul_bar">
+					<li class="ul_bar_active"><i style="margin-right: 0.1rem;" class="iconfont">&#xe66d;</i>货品管理</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe679;</i>采购入库</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67e;</i>往来管理</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe683;</i>门店调入</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe681;</i>门店调出</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67f;</i>销售订货</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe682;</i>销售开单</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe680;</i>盘点管理</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67a;</i>统计分析</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67b;</i>统计图表</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67c;</i>系统设置</li>
+					<li><i style="margin-right: 0.1rem;color:;" class="iconfont">&#xe67d;</i>退出系统</li>
+				</ul>
+			</div>
+			<div class="right">
+				<div class="page_title">货品管理-当前库存</div>
+				<div class="tab_bar">
+					<div class="back">返回</div>
+					<div class="save">保存</div>
+					<div class="stop">停用</div>
+					<div class="start">启用</div>
+				</div>
+				<div class="goods_form">
+					<div class="form_flex">
+						<span style="color: #FF9900;" class="label">*款号</span>
+						<input type="text" class="input_txt" />
+						&nbsp;<i class="info">KKL901(品牌+款号)等</i>
+					</div>
+					<div class="form_flex">
+						<span style="color: #FF9900;" class="label">*名称</span>
+						<input type="text" class="input_txt" />
+						&nbsp;<i class="info">豹纹打底衫 等</i>
+					</div>
+					<div class="form_flex">
+						<span class="label">品牌</span>
+						<div class="choose">
+							<select data-am-selected='{maxHeight:200}' id="js-selected">
+								<option value="a">Apple</option>
+								<option value="b">Banana</option>
+								<option value="o">Orange</option>
+								<option value="m">Mango</option>
+							</select>
+						</div>
+						<div class="add_btn add_flex1">&nbsp;<i style="font-size: 0.12rem;color: #FFC219;vertical-align: top;" class="iconfont"></i>&nbsp;新增
+							<div class="add_color_type brand hide">
+								<p class="title">品牌名称</p>
+								<input type="text" class="text_frame"/>
+								<div class="add_color_sure">确定</div>
+								<div class="add_color_cancel">取消</div>
+							</div>
+						</div>
+						&nbsp;<i class="info">可直接输入品牌名称进行选择</i>
+					</div>
+					<div class="form_flex flex_color">
+						<span style="color: #FF9900;" class="label">*颜色</span>
+						<div class="choose">
+							<select multiple data-am-selected="{maxHeight: 200}" id="color_select">
+							  
+							</select>
+						</div>
+						<div class="add_btn">&nbsp;<i style="font-size: 0.12rem;color: #FFC219;vertical-align: top;" class="iconfont"></i>&nbsp;新增
+							<div class="add_color_form hide">
+								<p class="title">颜色类别</p>
+								<div class="color_name">
+									<select data-am-selected="{maxHeight: 200}" id="color_name">
+										
+									</select>
+								</div>
+								<p class="title">颜色名称</p>
+								<input type="text" class="text_frame"/>							
+								<div class="add_color_sure">确定</div>
+								<div class="add_color_cancel">取消</div>
+							</div>
+						</div>
+						&nbsp;<i class="info">不填默认均色均码</i>
+					</div>
+					<div class="form_flex flex_size">
+						<span style="color: #FF9900;" class="label">*尺码</span>
+						<div class="choose">
+							<select multiple data-am-selected="{maxHeight: 200}" id="size_select">
+							  
+							</select>
+						</div>
+						<div class="add_btn">&nbsp;<i style="font-size: 0.12rem;color: #FFC219;vertical-align: top;" class="iconfont"></i>&nbsp;新增
+							<div class="add_color_form hide">
+								<p class="title">尺码类别</p>
+								<div class="size_name">
+									<select data-am-selected="{maxHeight: 200}" id="size_name">
+										
+									</select>
+								</div>
+								<p class="title">尺码名称</p>
+								<input type="text" class="text_frame"/>							
+								<div class="add_color_sure">确定</div>
+								<div class="add_color_cancel">取消</div>
+							</div>
+						</div>
+						&nbsp;<i class="info">不填默认均色均码</i>
+					</div>
+					<div class="form_flex flex_recode">
+						<span class="label">库存录入</span>
+						<textarea class="text_area" readonly="readonly"></textarea>
+						<div class="clear_btn">&nbsp;<i style="font-size: 0.12rem;color: #FFC219;vertical-align: top;" class="iconfont"></i>&nbsp;清除
+						</div>
+						<div class="add_btn">&nbsp;<i style="font-size: 0.12rem;color: #FFC219;vertical-align: top;" class="iconfont"></i>&nbsp;新增
+							<div class="add_color_form hide">
+								<p class="title">颜色类别</p>
+								<div class="color_name">
+									<select data-am-selected="{maxHeight: 200}" id="recode_color">
+										
+									</select>
+								</div>
+								<p class="title">尺码类别</p>
+								<div class="color_name">
+									<select data-am-selected="{maxHeight: 200}" id="recode_size">
+										
+									</select>
+								</div>
+								<p class="title">数量</p>
+								<input type="text" class="text_frame" onkeyup="value=value.replace(/[^\d]/g,'')"/>							
+								<div class="add_color_sure">确定</div>
+								<div class="add_color_cancel">取消</div>
+							</div>
+						</div>
+					</div>
+					<div class="form_flex">
+						<span style="color: #FF9900;" class="label">*上架日期</span>
+						<input type="text" class="input_txt" data-am-datepicker readonly="readonly"/>
+					</div>
+					<div class="form_flex">
+						<span class="label">下架日期</span>
+						<div class="choose">
+							<select data-am-selected>
+								<option value="a">永久</option>
+								<option value="b">三天</option>
+								<option value="o">一周</option>
+								<option value="m">一个月</option>
+							</select>
+						</div>
+					</div>
+					<div class="form_flex">
+						<span class="label">启用上次价</span>
+						<div class="choose">
+							<select data-am-selected id="is_old_price">
+								<option value="是">是</option>
+								<option value="否">否</option>
+							</select>
+						</div>
+					</div>
+					<div class="price_list">
+						<div class="form_flex">
+							<span class="label">吊牌价</span>
+							<input type="text" class="input_txt priceTag" />
+							&nbsp;<i class="info">必须选择品牌</i>
+						</div>
+						<div class="form_flex">
+							<span class="label">进货价</span>
+							<input type="text" class="input_txt priceBuy" />
+						</div>
+						<!--<div class="form_flex">
+							<span style="color: #FF9900;" class="label">*零批价</span>
+							<input type="text" class="input_txt" />
+						</div>
+						<div class="form_flex">
+							<span class="label">VIP价</span>
+							<input type="text" class="input_txt" />
+						</div>-->
+					</div>
+					<div class="form_flex">
+						<span class="label">是否特价</span>
+						<div class="choose">
+							<select data-am-selected>
+								<option value="a">是</option>
+								<option value="b">否</option>
+							</select>
+						</div>
+					</div>
+					<div class="form_flex">
+						<span class="label">产品折扣</span>
+						<input type="text" class="input_txt" />
+					</div>
+					<div class="form_flex">
+						<span class="label">季节</span>
+						<div class="choose">
+							<select data-am-selected>
+								<option value="a">春</option>
+								<option value="b">夏</option>
+								<option value="o">秋</option>
+								<option value="m">冬</option>
+							</select>
+						</div>
+					</div>
+					<div class="form_flex classfiy">
+						<span class="label">类别</span>
+						<div class="choose">
+							<select data-am-selected="{maxHeight: 200}" id="classfiy">
+							  
+							</select>
+						</div>
+						<div class="add_btn add_classfiy_btn">&nbsp;<i style="font-size: 0.12rem;color: #FFC219;vertical-align: top;" class="iconfont"></i>&nbsp;新增
+							<div class="add_color_type add_classfiy_log hide">
+								<p class="title">类别名称</p>
+								<input type="text" class="text_frame"/>
+								<div class="add_color_sure">确定</div>
+								<div class="add_color_cancel">取消</div>
+							</div>
+						</div>
+					</div>
+					<div class="form_flex">
+						<span class="label">厂商</span>
+						<div class="choose">
+							<select data-am-selected='{maxHeight:200}' id="js-selected">
+								<option value="a">Apple</option>
+								<option value="b">Banana</option>
+								<option value="o">Orange</option>
+								<option value="m">Mango</option>
+							</select>
+						</div>
+						<div class="add_btn">&nbsp;<i style="font-size: 0.12rem;color: #FFC219;vertical-align: top;" class="iconfont"></i>&nbsp;新增
+						</div>
+					</div>
+					<div class="form_flex">
+						<span class="label">计价单位</span>
+						<div class="choose">
+							<select data-am-selected='{maxHeight:200}' id="js-selected">
+								<option value="a">件</option>
+								<option value="b">套</option>
+								<option value="o">双</option>
+								<option value="m">条</option>
+							</select>
+						</div>
+					</div>
+					<div class="form_flex">
+						<span class="label">仓位</span>
+						<div class="choose">
+							<select data-am-selected='{maxHeight:200}' id="js-selected">
+								<option value="a">Apple</option>
+								<option value="b">Banana</option>
+								<option value="o">Orange</option>
+								<option value="m">Mango</option>
+							</select>
+						</div>
+					</div>
+					<div class="form_flex">
+						<span class="label">最小库存</span>
+						<input type="text" class="input_txt" />
+					</div>
+					<div class="form_flex">
+						<span class="label">最大库存</span>
+						<input type="text" class="input_txt" />
+					</div>
+					<div class="form_flex">
+						<span class="label">经办人</span>
+						<input type="text" class="input_txt" />
+					</div>
+					<div class="form_flex">
+						<span class="label">允许退货</span>
+						<div class="choose">
+							<select data-am-selected>
+								<option value="a">不允许</option>
+								<option value="b">允许</option>
+							</select>
+						</div>
+					</div>
+					<div class="form_flex">
+						<span class="label">门店</span>
+						<input type="text" class="input_txt" />
+						&nbsp;<i class="info">按门店区分货品的用户可填</i>
+					</div>
+					<div class="form_flex">
+						<span class="label">装箱数</span>
+						<input type="text" class="input_txt" />
+						&nbsp;<i class="info">如一箱几件/双</i>
+					</div>
+					<div class="form_flex">
+						<span class="label">备注</span>
+						<textarea class="text_area" style="background-color: #FFFFFF;"></textarea>
+					</div>
+				</div>
+				<div class="system_info">
+					<span style="float: left;">每日23:00-23:30系统维护期间，请错开时间登录 V.8.3301</span>
+					<span style="float: right;">客服 400-680-5685转2   编号 71726830   159.17.102</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../lib/js/jquery-3.1.1.min.js"></script>
+	<script src="../common/common.js"></script>
+	<script src="../lib/js/amazeui.min.js"></script>
+	<script src="../js/add_goods.js"></script>
+	<script>
+		//返回
+		$('.tab_bar .back').click(function(){
+			$(".log").removeClass('hide')
+			dialog.confirm('确认离开？','sure()','cancel()')
+		})
+		function sure(){
+			window.history.back()
+		}
+		function cancel(){
+			$('.log').addClass('hide') ;
+			$(".log_window").removeClass()
+		}
+		/*var obj = {
+					url: 'goods/color/typechooselist.json',
+					successCallback :function(res){
+						var ohtml = '' ;
+						var data = res['colorTypeResultList'] ;
+						for(var i = 0,len = data.length; i<len ;i++){
+							ohtml +='<option value="'+ data[i]['name'] +'" data-id = "'+ data[i]['id'] +'">'+ data[i]['name'] +'</option>'
+						}
+						$('#js-selected').append(ohtml)
+					},
+					errorCallback : function(res){
+						console.log(res)
+					}
+				}
+				Ajax(obj)
+				
+				$('.add_newColor').on('click', function() {
+					if(event.target == this) {
+						if($('.add_color_type').length > 0) {
+							$('.add_color_type').remove();
+						} else {
+							dialog.addColorType('.add_newColor');
+						}
+					}
+				})
+				
+				$(".add_newColor").on('click','.add_color_cancel',function() {
+					$('.add_color_type').remove();
+				})
+				
+				$(".add_newColor").on('click','.add_color_sure',function() {
+					var colorTypeName = $('.text_frame').val() ;
+					var opt = {
+						url: 'goods/color/typeadd.json',
+						param: {
+							colorTypeName: colorTypeName
+						},
+						successCallback: function(res) {
+							if(res['status']==200 && res['success']==true){
+								alert('添加成功') ;
+								$('#js-selected').append('<option value="'+ colorTypeName +'">'+ colorTypeName +'</option>')
+								$('.add_color_type').remove();
+							}else if(res['status']==200 && res['success']==false){
+								alert(res['errMsg']) ;
+							}
+						},
+						errorCallback: function(res) {
+							console.log(res)
+						}
+					}
+					Ajax(opt)
+				})
+				
+				$('.save').click(function(){   //保存提交
+					var colorTypeId =  $('#js-selected').find('option:selected').attr('data-id') ;
+					var colorName = $('.name').val() ;
+					var orderedNumber = $('.sort').val() ;
+					var opt = {
+						url :'goods/color/add.json' ,
+						param : {
+							colorTypeId : colorTypeId ,
+							colorName : colorName ,
+							orderedNumber:orderedNumber
+						},
+						successCallback : function(res){
+							if(res['status']==200 && res['success']==true){
+								alert('保存成功') ;
+							}else if(res['status']==200 && res['success']==false){
+								alert(res['errMsg']) ;
+							}
+						},
+						errorCallback: function(res) {
+							console.log(res)
+						}
+					}
+					Ajax(opt)
+				})
+				
+				$('.back').click(function(){
+					window.history.back()
+					//window.location.replace('../../index.html')
+				})*/
+	</script>
+
+</html>

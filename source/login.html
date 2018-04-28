@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>登录</title>
+		<link rel="stylesheet" type="text/css" href="src/css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="src/lib/css/base.css"/>
+		<script src="src/lib/js/jquery-3.1.1.min.js"></script>
+		<script src="src/common/common.js"></script>
+		<script src="src/js/login.js"></script>
+	</head>
+	<body>
+		<div id="login">
+			<div class="dialog">用户名错误11</div>
+			<fieldset class="name">
+			    <legend style="border: none;font-size: 0.14rem;color: #000000;margin-left: 0.2rem;font-weight: 600;">&nbsp;用户名&nbsp;</legend>
+			    <input type="text" placeholder="请输入用户名" class="user_name"/>
+		  	</fieldset>
+		  	<fieldset class="name" style="top: 1.6rem;">
+			    <legend style="border: none;font-size: 0.14rem;color: #000000;margin-left: 0.2rem;font-weight: 600;">&nbsp;密码&nbsp;</legend>
+			    <input type="password" placeholder="请输入用户名" class="user_psw"/>
+		  	</fieldset>
+		  	<button disabled="disabled" class="login_btn" style="top: 2.4rem;background-color: #DDDDDD;border: none;color: #FFFFFF;font-size: 0.18rem;outline: none;">登录</button>
+		</div>
+		<div class="g-type">
+			<div class="type-dtl">
+				<span class="type-normal">正常</span>
+				<span class="type-urgent">紧急</span>
+			</div>
+			<p class="type-tips">仅当无网络时，启用紧急模式</p>
+		</div>
+	</body>
+</html>
