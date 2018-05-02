@@ -81,7 +81,7 @@
 	margin-right: 0.1rem;
 	margin-top: 0.05rem;
 }
-.right .btns_type1 fieldset input,.right .btns_type2 fieldset input,.right .btns_type3 fieldset input,.right .btns_type4 fieldset input,.right .btns_type5 fieldset input,.right .btns_type8 fieldset input{
+.right .btns_type1 fieldset input,.right .btns_type2 fieldset input,.right .btns_type3 fieldset input,.right .btns_type4 fieldset input,.right .btns_type5 fieldset input{
 	width: 90%;
 	height: 50%;
 	position: absolute;

@@ -1,4 +1,6 @@
-$(function(){
+
+	var warehouse_page;
+	var nums;
 	
 	$(".stock_type li").click(function(){  //头部导航
 		var index = $(this).index() ;
@@ -67,6 +69,7 @@ $(function(){
 	
 	//按钮更多
 	$('.more').on('click', function() {
+		console.log(event.target)
 		if(event.target == this) {
 			$('.more').addClass('click_class')		
 			if($('.set_list').length > 0){
@@ -82,6 +85,8 @@ $(function(){
 			}else {
 				dialog.indexBtnMore();
 			}
+		}else{
+			$('.more_list').remove();
 		}
 	})
 	
@@ -102,16 +107,16 @@ $(function(){
 			} else {
 				dialog.indexBtnSet();
 			}
+		}else{
+			$('.set_list').remove()
 		}
 	})
 	
 	
 	$('.set').on('click','.all_color',function(){
-		$('.set_list').remove();
 		$(".btns_type6").removeClass('hide').siblings('.type_box_child').addClass('hide') ;
 	})
 	$('.set').on('click','.all_size',function(){
-		$('.set_list').remove();
 		$(".btns_type7").removeClass('hide').siblings('.type_box_child').addClass('hide') ;
 	})
 	$('.btns_type6 .add_list_btn').click(function(){
@@ -130,7 +135,6 @@ $(function(){
 	
 	//基本设置-价格名称
 	$('.set').on('click','ul .priceBtn',function(){
-		$('.set_list').remove();
 		$(".type_box_child").addClass('hide') ;
 		var priceName = {
 		url : 'goods/price/list.json' ,
@@ -190,16 +194,17 @@ $(function(){
 	Ajax(priceName)
 		
 	})
+	
+	//价格的单条信息
 	$('.list_box').on('click','.set_priceName_item ',function(){
 		var priceId = $(this).attr('data-id') ;
-		window.location.href = "src/html/price_info.html?priceId="+ priceId +""
+		window.location.href = "src/html/price_info.html?priceId="+ priceId
 	})
 
 	//更多-仓位列表
 	
 	$('.more').on('click','ul .warehouse_list',function(){
-		var warehouse_page = 1 ;
-		$('.more_list').remove();
+		warehouse_page = 1 ;
 		$(".btns_type8").removeClass('hide').siblings('.type_box_child').addClass('hide') ;
 		var warehouseObj = {
 			url : 'goods/warehouse/querylist.json' ,
@@ -208,7 +213,7 @@ $(function(){
 				pageSize : 12
 			},
 			successCallback : function(res){
-				if(res['status']==200 && res['success']==true){
+				if(res['status']==200 && res['success']==true){				
 					wareHouseList(res)
 				}
 			},
@@ -237,20 +242,82 @@ $(function(){
 	//仓位查询
 	$(".btns_type8 .seach").click(function(){
 		var id = $('#btns_type8_select').val() ;
+		
 		var seach = {
 			url : 'goods/warehouse/querylist.json' ,
 			param : {
-				id : id
+				id : id ,
+				currentPage : warehouse_page ,
+				pageSize : 12
 			},
 			successCallback : function(res){
-				wareHouseList(res)
+				if(res['status']==200 && res['success']==true){
+					wareHouseList(res)
+				}else {
+					alert(res['errMsg'])
+				}
+			},
+			errorCallback : function(res){
+				alert('网络错误')
 			}
 		}
 		Ajax(seach)
 	})
 	
+	//仓位翻页
+	$('.list_box').on('click','.warehouse_bot',function(){
+		console.log(nums)
+		if(nums>12){
+			dialog.pageNum();
+			$('.log').removeClass('hide') ;
+			$('.log_window .page_num div').eq(warehouse_page-1).addClass('add_radius') ;				
+		}
+	})
+	$('#content_box').on('click','.page_num div',function(){
+		$(this).addClass('add_radius').siblings().removeClass('add_radius') ;
+		var currentPage = $(this).index() + 1 ;
+		warehouse_page = currentPage ;
+		$('.log').addClass('hide') ;
+		$('.log_window').remove() ;
+		var pageObj = {
+			url : 'goods/warehouse/querylist.json' ,
+			param : {
+				currentPage : currentPage ,
+				pageSize : 12 
+			},
+			successCallback : function(res){
+				if(res['status']==200 && res['success']==true){
+					wareHouseList(res)
+				}else {
+					alert(res['errMsg'])
+				}
+			},
+			errorCallback : function(res){
+				alert('网络错误')
+			}
+		}
+		Ajax(pageObj)
+	})
+	$('#content_box').on('click','.close_window',function(){
+		$('.log').addClass('hide')
+		$(this).parent().remove() ;
+	})
+	
+	
+	//仓位清除
+	$(".btns_type8 .clear").click(function(){
+		$('#btns_type8_select').val("")
+	})
+	
+	//仓位的单条信息
+	$('.list_box').on('click','.set_warehouse_item  ',function(){
+		var warehouseId = $(this).attr('data-id') ;
+		window.location.href = "src/html/warehouse_info.html?warehouseId="+ warehouseId
+	})
+	
 	function wareHouseList(oData){
 		var data = oData['list'];
+		nums = oData["total"] ;
 				var ohtml = `
 					<div class="set_warehouse_title">
 						<div>序号</div>
@@ -272,9 +339,9 @@ $(function(){
 						<div class="list_bottom_left">
 							<span style="color: #FF9900;">黄色已停用  请从红线（如存在）分隔处开始滚动</span>
 						</div>
-						<div class="list_bottom_right">
+						<div class="list_bottom_right warehouse_bot">
 							<span>共 ${oData['total']} 条</span>
-							<span>1/${oData['total']%12==0? 1:parseInt((oData['total']/12)+1)}</span>
+							<span>${warehouse_page}/${oData['total']%12==0? 1:parseInt((oData['total']/12)+1)}</span>
 						</div>
 					</div>
 				`
@@ -290,4 +357,3 @@ $(function(){
 	}
 	
 	
-})

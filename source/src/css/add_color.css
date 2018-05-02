@@ -1,5 +1,5 @@
 .tab_bar .save,
-.back {
+.back,.start,.stop {
 	width: 0.4rem;
 	height: 0.26rem;
 	border: 1px solid #999999;
@@ -22,6 +22,12 @@
 	background-color: #FFC219;
 	color: #FFF;
 	border: none;
+}
+
+.tab_bar .start,.stop{
+	float: right;
+	background-color: #FFF;
+	margin-right: 0.12rem;
 }
 
 .color_form {

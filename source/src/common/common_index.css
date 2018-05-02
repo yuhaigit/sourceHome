@@ -390,3 +390,8 @@ border-color: #F3F3F3;
 	margin-right: 0.55rem;
 }
 
+.add_radius{
+	border: 1px solid #FFC219;
+	border-radius: 50%;
+	color: #FFC219;
+}
