@@ -26,7 +26,7 @@
 		    top: 50%;
 		    transform: translate(-50%,-50%);
 		    -webkit-transform: translate(-50%,-50%);
-		    z-index: 3;
+		    z-index: 1000;
     		background: url(img/pause.jpg);
     		background-size: 1.76rem auto;
     		background-repeat: no-repeat;
@@ -166,17 +166,26 @@
 	})*/
 	
 	var player = new TcPlayer('id_test_video', {
-		"m3u8": "http://wssource.hls.inke.cn/live/1526111351727288/playlist.m3u8", //请替换成实际可用的播放地址
+		"m3u8": "http://wssource.hls.inke.cn/live/1526180435322045/playlist.m3u8", //请替换成实际可用的播放地址
 		"autoplay" : false,      //iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
 		"coverpic" : "https://img2.inke.cn/MTQ5ODgyMjM5MzE4OCMxNDEjanBn.jpg",
 		"width" :  '100%',//视频的显示宽度，请尽量使用视频分辨率宽度
 		"height" : '100%',//视频的显示高度，请尽量使用视频分辨率高度
 		"x5_type":'h5',
 		"x5_fullscreen":'true',
-		"controls":'none'
+		"controls":'none',
+		"listener":function(msg){
+			if(msg.type == 'load' || msg.type == 'pause'){
+				$('.video-pane').append('<div class="pause"></div>')
+			}
+			if(msg.type == 'playing'){
+				$('.pause').remove();
+			}
+		
+		}
 	});
 	$('video').css('object-fit','cover') ;
-	$('.vcp-poster').append('<div class="pause"></div>')
+	
 	
 	
 	$('.video-page').bind('click','.pause',function(){
@@ -276,7 +285,7 @@
         isAccessFormalEnv = false;//访问测试环境
     }
 
-    var isLogOn = true;//是否在浏览器控制台打印sdk日志
+    var isLogOn = false;//是否在浏览器控制台打印sdk日志
 
     //其他对象，选填
     var options = {
