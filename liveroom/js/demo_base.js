@@ -1,3 +1,4 @@
+
 //IE9(含)以下浏览器用到的jsonp回调函数
 function jsonpCallback(rspData) {
     //设置接口返回的数据
@@ -12,6 +13,7 @@ function onBigGroupMsgNotify(msgList) {
         //console.warn(msg);
         webim.Log.warn('receive a new avchatroom group msg: ' + msg.getFromAccountNick());
         //显示收到的消息
+       // console.log(msg)
         showMsg(msg);
     }
 }
@@ -83,8 +85,6 @@ function sdkLogin() {
             //identifierNick为登录用户昵称(没有设置时，为帐号)，无登录态时为空
             webim.Log.info('webim登录成功');
             applyJoinBigGroup(avChatRoomId); //加入大群
-            hideDiscussForm(); //隐藏评论表单
-            initEmotionUL(); //初始化表情
         },
         function(err) {
             alert(err.ErrorInfo);
@@ -110,7 +110,6 @@ function applyJoinBigGroup(groupId) {
             }
         },
         function(err) {
-        	alert(1)
             alert(err.ErrorInfo);
         }
     );
@@ -131,7 +130,7 @@ function showMsg(msg) {
         fromAccountNick = '未知用户';
     }
     ul = document.getElementById("video_sms_list");
-    var maxDisplayMsgCount = 4;
+    var maxDisplayMsgCount = 5;
     //var opacityStep=(1.0/4).toFixed(2);
     var opacityStep = 0.2;
     var opacity;
@@ -151,9 +150,10 @@ function showMsg(msg) {
     nickNameSpan = document.createElement("span");
 
     var colorList = ['red', 'green', 'blue', 'org'];
-    var index = Math.round(fromAccount.length % colorList.length);
+    //var index = Math.round(fromAccount.length % colorList.length);
+    var index = parseInt(Math.random()*4)
     var color = colorList[index];
-    nickNameSpan.setAttribute('class', 'user-name-' + color);
+    nickNameSpan.setAttribute('class', 'nick-span user-name-' + color);
     nickNameSpan.innerHTML = webim.Tool.formatText2Html("" + fromAccountNick + "");
     contentSpan = document.createElement("span");
 
@@ -170,9 +170,8 @@ function showMsg(msg) {
     isSelfSend = msg.getIsSend(); //消息是否为自己发的
 
     switch (subType) {
-
         case webim.GROUP_MSG_SUB_TYPE.COMMON: //群普通消息
-            contentSpan.innerHTML = convertMsgtoHtml(msg);
+            contentSpan.innerHTML = convertMsgtoHtml(msg,color);
             break;
         case webim.GROUP_MSG_SUB_TYPE.REDPACKET: //群红包消息
             contentSpan.innerHTML = "[群红包消息]" + convertMsgtoHtml(msg);
@@ -182,17 +181,17 @@ function showMsg(msg) {
             contentSpan.innerHTML = "[群点赞消息]" + convertMsgtoHtml(msg);
             //展示点赞动画
             showLoveMsgAnimation();
-            break;
+            return;
         case webim.GROUP_MSG_SUB_TYPE.TIP: //群提示消息
             contentSpan.innerHTML = "[群提示消息]" + convertMsgtoHtml(msg);
-            break;
+            return;
         default:
             contentSpan.innerHTML = msg.tipText;
             break;
     }
+    console.log(nickNameSpan)
     textDiv.appendChild(nickNameSpan);
     textDiv.appendChild(contentSpan);
-
     paneDiv.appendChild(textDiv);
     li.appendChild(paneDiv);
     ul.appendChild(li);
@@ -200,7 +199,7 @@ function showMsg(msg) {
 
 //把消息转换成Html
 
-function convertMsgtoHtml(msg) {
+function convertMsgtoHtml(msg,color) {
     var html = "",
         elems, elem, type, content;
     elems = msg.getElems(); //获取消息包含的元素数组
@@ -209,8 +208,8 @@ function convertMsgtoHtml(msg) {
         type = elem.getType(); //获取元素类型
         content = elem.getContent(); //获取元素对象
         switch (type) {
-            case webim.MSG_ELEMENT_TYPE.TEXT:
-                html += convertTextMsgToHtml(content);
+            case webim.MSG_ELEMENT_TYPE.TEXT:           
+        		html += convertTextMsgToHtml(content);
                 break;
             case webim.MSG_ELEMENT_TYPE.FACE:
                 html += convertFaceMsgToHtml(content);
@@ -228,7 +227,14 @@ function convertMsgtoHtml(msg) {
                 //html += convertLocationMsgToHtml(content);
                 break;
             case webim.MSG_ELEMENT_TYPE.CUSTOM:
-                html += convertCustomMsgToHtml(content);
+            	/*if(JSON.parse(content.data)['cmd'] == 'CustomCmdMsg'){
+	            		if(JSON.parse(content.data)['data']['cmd'] == 2 || JSON.parse(content.data)['data']['cmd'] == 3 || JSON.parse(content.data)['data']['cmd'] == 4){
+	            		return	
+	            	}
+            	}else if(JSON.parse(content.data)['cmd'] == 'CustomTextMsg'){
+            		html += convertCustomMsgToHtml(content);
+            	}*/
+            	html += convertCustomMsgToHtml(content);
                 break;
             case webim.MSG_ELEMENT_TYPE.GROUP_TIP:
                 html += convertGroupTipMsgToHtml(content);
@@ -246,6 +252,15 @@ function convertMsgtoHtml(msg) {
 function convertTextMsgToHtml(content) {
     return content.getText();
 }
+
+
+//解析客户端文本消息
+function convertTextMsgToHtml1(content) {
+	console.log(content.text.split(','))
+	return content.text
+}
+
+
 //解析表情消息元素
 
 function convertFaceMsgToHtml(content) {
@@ -305,39 +320,43 @@ function convertCustomMsgToHtml(content) {
     var data = content.getData();
     var desc = content.getDesc();
     var ext = content.getExt();
-    return "data=" + data + ", desc=" + desc + ", ext=" + ext;
+    //return "data=" + data + ", desc=" + desc + ", ext=" + ext;
+    return ext;
 }
 //解析群提示消息元素
 
 function convertGroupTipMsgToHtml(content) {
     var WEB_IM_GROUP_TIP_MAX_USER_COUNT = 10;
     var text = "";
+    let name = "" ;
     var maxIndex = WEB_IM_GROUP_TIP_MAX_USER_COUNT - 1;
     var opType, opUserId, userIdList;
     var memberCount;
     opType = content.getOpType(); //群提示消息类型（操作类型）
     opUserId = content.getOpUserId(); //操作人id
     userIdList = content.getUserInfo();
-    switch (opType) {
+	switch (opType) {
         case webim.GROUP_TIP_TYPE.JOIN: //加入群
             //text += opUserId + "邀请了";
             for (var m in userIdList) {
                 if (userIdList[m].NickName != undefined) {
-                    text += userIdList[m].NickName + ",";
+                    name += userIdList[m].NickName + ",";
                 } else {
-                    text += userIdList[m].UserId + ",";
+                    name += userIdList[m].UserId + ",";
                 }
                 if (userIdList.length > WEB_IM_GROUP_TIP_MAX_USER_COUNT && m == maxIndex) {
-                    text += "等" + userIdList.length + "人";
+                    name += "等" + userIdList.length + "人";
                     break;
                 }
             }
-            text = text.substring(0, text.length - 1);
+            
+            name = name.substring(0, name.length - 1);
+            tip.follow(name)
             text += "进入房间";
             //房间成员数加1
             memberCount = $('#user-icon-fans').html();
             $('#user-icon-fans').html(parseInt(memberCount) + 1);
-            break;
+            break ;
         case webim.GROUP_TIP_TYPE.QUIT: //退出群
             var quitName = content.getQuitGorupName()
             text += quitName + "离开房间";
@@ -449,8 +468,10 @@ function convertGroupTipMsgToHtml(content) {
         default:
             text += "未知群提示消息类型：type=" + opType;
             break;
-    }
+    }   
+    
     return text;
+    
 }
 
 //tls登录
@@ -487,7 +508,6 @@ function tlsGetUserSig(res) {
         if (res.ErrorCode == webim.TLS_ERROR_CODE.SIGNATURE_EXPIRATION) {
             tlsLogin();
         } else {
-        	alert(2)
             alert("[" + res.ErrorCode + "]" + res.ErrorInfo);
         }
     }
@@ -535,9 +555,6 @@ function smsPicClick() {
             $('#login_dialog').show();
         }
         return;
-    } else {
-        hideDiscussTool(); //隐藏评论工具栏
-        showDiscussForm(); //显示评论表单
     }
 }
 
@@ -644,10 +661,6 @@ function onSendMsg() {
         }
         webim.Log.info("发消息成功");
         $("#send_msg_text").val('');
-
-        hideDiscussForm(); //隐藏评论表单
-        showDiscussTool(); //显示评论工具栏
-        hideDiscussEmotion(); //隐藏表情
     }, function(err) {
         webim.Log.error("发消息失败:" + err.ErrorInfo);
         alert("发消息失败:" + err.ErrorInfo);
@@ -657,7 +670,6 @@ function onSendMsg() {
 //发送消息(群点赞消息)
 
 function sendGroupLoveMsg() {
-
     if (!loginInfo.identifier) { //未登录
         if (accountMode == 1) { //托管模式
             //将account_type保存到cookie中,有效期是1天
@@ -705,39 +717,6 @@ function sendGroupLoveMsg() {
         alert("发送点赞消息失败:" + err.ErrorInfo);
     });
 }
-//隐藏评论文本框
-
-function hideDiscussForm() {
-    $(".video-discuss-form").hide();
-}
-//显示评论文本框
-
-function showDiscussForm() {
-    $(".video-discuss-form").show();
-}
-//隐藏评论工具栏
-
-function hideDiscussTool() {
-    $(".video-discuss-tool").hide();
-}
-//显示评论工具栏
-
-function showDiscussTool() {
-    $(".video-discuss-tool").show();
-}
-//隐藏表情框
-
-function hideDiscussEmotion() {
-    $(".video-discuss-emotion").hide();
-    //$(".video-discuss-emotion").fadeOut("slow");
-}
-//显示表情框
-
-function showDiscussEmotion() {
-    $(".video-discuss-emotion").show();
-    //$(".video-discuss-emotion").fadeIn("slow");
-
-}
 //展示点赞动画
 
 function showLoveMsgAnimation() {
@@ -746,7 +725,7 @@ function showLoveMsgAnimation() {
     $('#user-icon-like').html(parseInt(loveCount) + 1);
     var toolDiv = document.getElementById("video-discuss-tool");
     var loveSpan = document.createElement("span");
-    var colorList = ['red', 'green', 'blue'];
+    var colorList = ['like_a', 'like_b', 'like_c','like_d','like_e','like_f','like_g','like_h'];
     var max = colorList.length - 1;
     var min = 0;
     var index = parseInt(Math.random() * (max - min + 1) + min, max + 1);
@@ -755,37 +734,6 @@ function showLoveMsgAnimation() {
     toolDiv.appendChild(loveSpan);
 }
 
-//初始化表情
-
-function initEmotionUL() {
-    for (var index in webim.Emotions) {
-        var emotions = $('<img>').attr({
-            "id": webim.Emotions[index][0],
-            "src": webim.Emotions[index][1],
-            "style": "cursor:pointer;"
-        }).click(function() {
-            selectEmotionImg(this);
-        });
-        $('<li>').append(emotions).appendTo($('#emotionUL'));
-    }
-}
-
-//打开或显示表情
-
-function showEmotionDialog() {
-    if (openEmotionFlag) { //如果已经打开
-        openEmotionFlag = false;
-        hideDiscussEmotion(); //关闭
-    } else { //如果未打开
-        openEmotionFlag = true;
-        showDiscussEmotion(); //打开
-    }
-}
-//选中表情
-
-function selectEmotionImg(selImg) {
-    $("#send_msg_text").val($("#send_msg_text").val() + selImg.id);
-}
 
 //退出大群
 
@@ -803,7 +751,6 @@ function quitBigGroup() {
             //applyJoinBigGroup(avChatRoomId2);//加入大群
         },
         function(err) {
-        	alert(3)
             alert(err.ErrorInfo);
         }
     );

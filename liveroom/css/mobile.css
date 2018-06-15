@@ -15,7 +15,8 @@ ol, ul {
 body {
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
-    outline: 0
+    outline: 0;
+   	background-color: black;
 }
 
 h1, h2, h3 {
@@ -77,18 +78,20 @@ em, i {
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 10
+    z-index: 10;
+    background: url(../img/bg_zhibotoubu@2x.png) no-repeat;
+    background-size: 100% 1.26rem;
 }
 
 .video-pane .video-pane-head {
-    height: 1.5rem;
+    height: 2rem;
     position: relative;
     width: 100%;
-    margin-top: 0.1rem;
-    font-size: 0.26rem;
+    margin-top: 0.15rem;
+    font-size: 0.14rem;
 }
 .is-android.video-pane-head{
-	margin-top: 0.8rem;
+	margin-top: 0.5rem;
 }
 .video-pane .video-pane-body {
     height: 40%;
@@ -114,40 +117,44 @@ em, i {
 }
 
 .user-info-num {
-    font-size: 13px;
-    color: #fff
+    font-size: 0.12rem;
+    color: #fff ;
+    margin-top: 0.06rem;
 }
 
 .video-pane-info {
     display: inline-block;
-    background: url(../img/back.png);
     border-radius: 51px;
     height: 51px;
-    margin: 15px
+    width: 100%;
+    padding-left: 0.12rem;
 }
 
 .video-info {
     z-index: 2;
     position: relative;
-    padding: 3px
+    float: left;
 }
 
 .user-img {
-    display: inline-block
+    display: inline-block ;
+    width: 0.44rem;
+    height: 0.44rem;
 }
 
 .user-info-text {
     display: inline-block;
-    padding-left: 10px;
-    padding-right: 20px;
+    padding-left: 0.06rem;
     vertical-align: top;
-    padding-top: 5px;
+    padding-top: 0.05rem;
     color: #fff;
     max-width: 200px
 }
 
 .user-info-name {
-    line-height: 16px
+    line-height: 16px;
+    font-size: 0.14rem;
+    color: #FFF;
 }
 
 .user-icon-fans {
@@ -176,7 +183,9 @@ em, i {
 
 .video-sms-list {
     color: #fff;
-    margin: 0 15px
+    margin: 0 15px;
+    position: absolute;
+    bottom: 0.6rem;
 }
 
 .video-sms-list li {
@@ -201,20 +210,18 @@ em, i {
 
 .video-sms-text {
     padding: 2px 10px;
-    font-size: 14px;
-    background-color: #fff;
-    border-radius: 10px;
+    font-size: 0.14rem;
     text-align: left;
     max-width: 250px;
     line-height: 18px;
-    color: #000;
+    color: #fff;
     word-wrap: break-word
 }
 
 .video-sms-text span {
     padding-right: 10px;
     vertical-align: top;
-    color: #000
+    color: #fff
 }
 
 .video-sms-text span.user-name-green {
@@ -234,7 +241,10 @@ em, i {
 }
 
 .video-discuss-tool {
-    margin: 25px 15px 15px
+    margin: 25px 0 15px;
+    width: 2rem;
+    height: 0.23rem;
+    float: right;
 }
 
 .video-discuss-sms {
@@ -242,7 +252,8 @@ em, i {
     background-size: 35px 35px;
     display: inline-block;
     width: 35px;
-    height: 35px
+    height: 35px;
+    float: right;
 }
 
 .video-discuss-sms:focus, .video-discuss-sms:hover {
@@ -255,8 +266,8 @@ em, i {
     display: inline-block;
     width: 35px;
     height: 35px;
-    position: absolute;
-    right: 15px
+    right: 15px;
+    float: right;
 }
 
 .video-discuss-like:focus, .video-discuss-like:hover {
@@ -264,18 +275,34 @@ em, i {
 }
 
 .video-discuss-form {
-    height: 30px;
-    background: url(../img/form-back.png);
-    padding: 8px 60px 10px 8px;
-    position: relative
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    height: 0.49rem;
+    background: rgba(255,255,255,1);
 }
 
 .video-discuss-input {
-    width: 85%;
-    height: 30px;
-    vertical-align: top;
-    padding: 0 13% 0 2%;
-    border-radius: 2px
+    display: block;
+    border: 1px solid #eee;
+    height: 0.33rem;
+    width: 2.8rem;
+    outline: none;
+    font-size: 0.14rem;
+    color: #333;
+    opacity: .8;
+    border-radius: 0.17rem;
+    text-indent: 0.1rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    left: 0.2rem;
+    input::-webkit-input-placeholder{
+    	color:red
+    }
 }
 
 .video-discuss-button {
@@ -291,25 +318,32 @@ em, i {
 }
 
 .video-discuss-face {
-    background: url(../img/face.png) no-repeat;
-    background-size: 20px 20px;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    right: 65px;
-    top: 12px;
-    position: absolute
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    width: 0.48rem;
+    height: 0.33rem;
+    line-height: .33rem;
+    text-align: center;
+    border-left: .0133rem solid #ccc;
+    z-index: 3;
+    font-size: 0.14rem;
+    text-decoration: none;
+    border-radius: 0.15rem;
+    background-color: #FF5959;
+    color: #fff;
+    margin: 0 0.12rem;
 }
 
-.video-discuss-face:focus, .video-discuss-face:hover {
-    background-image: url(../img/face_hover.png)
-}
 
 .like-icon {
     background: url(../img/like_icon_1.png) no-repeat;
-    background-size: 19px 17px;
-    width: 19px;
-    height: 17px;
+    background-size: 0.45rem 0.45rem;
+    width: 0.45rem;
+    height: 0.45rem;
     position: absolute;
     right: 24px;
     margin-top: -15px;
@@ -320,17 +354,31 @@ em, i {
     animation-fill-mode: both
 }
 
-.like-icon.green {
-    background-image: url(../img/like_icon_2.png)
+.like-icon.like_a {
+    background-image: url(../img/likes_a.png)
+}
+.like-icon.like_b {
+    background-image: url(../img/likes_b.png)
+}
+.like-icon.like_c {
+    background-image: url(../img/likes_c.png)
+}
+.like-icon.like_d {
+    background-image: url(../img/likes_d.png)
+}
+.like-icon.like_e {
+    background-image: url(../img/likes_e.png)
+}
+.like-icon.like_f {
+    background-image: url(../img/likes_f.png)
+}
+.like-icon.like_g {
+    background-image: url(../img/likes_g.png)
+}
+.like-icon.like_h {
+    background-image: url(../img/likes_h.png)
 }
 
-.like-icon.blue {
-    background-image: url(../img/like_icon_3.png)
-}
-
-.like-icon.red {
-    background-image: url(../img/like_icon_4.png)
-}
 
 @-webkit-keyframes zoomIn {
     from {
@@ -362,7 +410,7 @@ em, i {
     }
     100% {
         opacity: 0;
-        margin-top: -60px;
+        margin-top: -260px;
         -webkit-transform: scale3d(1, 1, 1);
         transform: scale3d(1, 1, 1)
     }

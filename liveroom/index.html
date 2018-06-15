@@ -8,27 +8,32 @@
     <title>腾讯IM(直播聊天室) Web Demo(V1.2)</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <meta name="format-detection" content="telephone=no">    
-    <link rel="stylesheet" href="./css/mobile.css?v=1.0.3">
+    <meta name="format-detection" content="telephone=no">   
+    <link rel="stylesheet" type="text/css" href="lib/css/jquery-weui.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/css/weui.css"/>
+    <link rel="stylesheet" type="text/css" href="css/animate.css"/>
+    <link rel="stylesheet" href="./css/mobile.css?v=1.0.3?time = New Data()">
     <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css?time = New Data()"/>
+ 
     <script>
     	var oHtml = document.getElementsByTagName("html")[0];
 		var screenW = document.documentElement.offsetWidth || document.body.offsetWidth;
-		oHtml.style.fontSize = 100 * screenW / 750 + "px";
+		oHtml.style.fontSize = 100 * screenW / 375 + "px";
     </script>
     <style>
     	.pause{
     		border-radius: 50%;
-    		width: 1.76rem;
-    		height: 1.76rem;
+    		width: 1rem;
+    		height: 1rem;
 		    position: absolute;
 		    left: 50%;
 		    top: 50%;
 		    transform: translate(-50%,-50%);
 		    -webkit-transform: translate(-50%,-50%);
-		    z-index: 1000;
-    		background: url(img/pause.jpg);
-    		background-size: 1.76rem auto;
+		    z-index: 3;
+    		background: url(img/pause.png);
+    		background-size: 1rem auto;
     		background-repeat: no-repeat;
     	}
     	.hide{
@@ -38,11 +43,57 @@
     		width: 100%;
     		height: 100%;
     	}
+    	.video-play{
+    		margin: 0 auto;
+    		transition:all 0.3s;
+    	}
+    	.reply{
+    		max-width: 2rem;
+    		word-break: break-all;
+    		display: -webkit-box; 
+    		-webkit-box-orient: vertical; 
+    		text-overflow: ellipsis;
+    		-webkit-line-clamp: 5;
+    		overflow: hidden;
+    		background: #FFFFFF;
+			-webkit-box-shadow:0 0 10px rgba(0, 0, 0, .2); 
+    		border-radius: 0.1rem;
+    		padding: 0.08rem;
+    		font-size: 0.14rem;
+    		line-height: 0.18rem;
+    		z-index: 999;
+    		margin-top: 0.1rem;
+    	}
+    	.reply-box{
+    		max-width: 2rem;
+    		height: auto;
+    		display: none;
+    		position: absolute;
+    		top: 51px;
+    		z-index: 999;
+    	}
+    	.reply-box:before{
+		    content: '';
+		    width: 0;
+		    height: 0;
+		    border-left: .12rem solid transparent;
+		    border-right: .12rem solid transparent;
+		    border-bottom: .12rem solid #fff;
+		    -webkit-transform: rotate(0deg);
+		    -moz-transform: rotate(0deg);
+		    -ms-transform: rotate(0deg);
+		    -o-transform: rotate(0deg);
+		    transform: rotate(0deg);
+		    position: absolute;
+		    left: 0.1rem;
+    	}
+    	.reply i{
+    		color: #4583FF;
+    	}
     </style>
 </head>
 <body class="no-cache">
 <div class="video-page">
-	
     <!--视频部分 start-->
     <div class="video-play" style="height: 100%;" id="id_test_video">
         <!--<video id="myVideo" src="http://wssource.hls.inke.cn/live/1526086834771652/playlist.m3u8" preload="auto" poster="https://img2.inke.cn/MTUyNTU2NzAyMzAwNyMyOTUjanBn.jpg" webkit-playsinline="true" playsinline="true" x-webkit-airplay="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" x5-video-ignore-metadata="true" style="width: 100%; object-fit: cover;"></video> -->      	
@@ -53,8 +104,19 @@
 
     <!--聊天部分 start-->
     <div class="video-pane">
+    	<div class="big-log-box">
+    		<!--<div class="big-logo">
+				<div class="big-log-1">
+					<img src="img/kuanye.png" />
+					<p>******鱼已拿货超过5件,达到撒旦撒旦撒</p>
+				</div>
+			</div>-->
+    	</div>
         <div class="video-pane-head">
             <div class="video-pane-info">
+            	<div class="reply-box">
+                	<div class="reply"><i>主播回复@蚊子:</i>达萨达萨达达萨达萨达撒达萨达萨达达萨达达萨达萨达撒达萨达萨达萨达达萨达萨达撒达萨达萨达萨达撒</div>
+                </div>
                 <div class="video-info">
                     <div class="user-img">
                         <img src="./img/user-img.png" width="45">
@@ -62,15 +124,42 @@
                     <div class="user-info-text">
                         <div class="user-info-name">美女主播朴信惠</div>
                         <div class="user-info-num">
-                            <i class="user-icon-fans"></i><span id="user-icon-fans">0</span>
-                            <i class="user-icon-like"></i><span id="user-icon-like">0</span>
+                        	<i>2000</i>人观看
+                            <!--<i class="user-icon-fans"></i><span id="user-icon-fans">0</span>
+                            <i class="user-icon-like"></i><span id="user-icon-like">0</span>-->
                         </div>
-                    </div>
+                    </div>                   
                 </div>
+                <div class="follow">
+                	<img src="img/btn_follow@2x.png" />
+                </div>
+                <div class="cloudId">ID:455444</div>
+            </div>
+            <div class="g-take">
+            	<div class="ic-car-num">
+            		<i style="color: #FF5959;">57</i>人拿了货
+            	</div>
+            </div>
+            <div class="hot">
+            	<img src="img/hot.png" class="hot-bg"/>
+            	<i class="hot-num">56</i>
+            	<div class="hot-pic">
+            		<img src="img/2017.jpg" />
+            	</div>
+            	<i class="hot-name">已售 200</i>
             </div>
            <!-- <a href="javascript:void(0);" class="video-close" onclick="quitBigGroup()"></a>-->
         </div>
-        <div class="video-pane-body">        	
+        <div class="video-pane-body">
+        	<div class="tip-box">
+        		<!--<div class="follow-tip animated fadeInLeft">
+	        		<div class="tip-icon">
+	        			<img src="img/follow-logo.png" />
+	        		</div>
+	        		<span>美少女星星</span>
+	        		关注了主播
+	        	</div>-->
+        	</div>
             <div class="video-discuss">
                 <ul class="video-sms-list" id="video_sms_list">
                     <!--
@@ -98,26 +187,128 @@
 
                 </ul>
                 <div class="video-discuss-pane">
+                	<div class="now-goods">
+                		<div class="scroll-now-goods">
+                			<div class="now-g-item">
+	                			<div class="ic-num-bg">
+	                				32
+	                			</div>
+	                			<div class="now-g-price ellip">￥58.00起</div>
+	                		</div>
+	                		<div class="now-g-item">
+	                			<div class="ic-num-bg">
+	                				32
+	                			</div>
+	                			<div class="now-g-price ellip">￥59.00起</div>
+	                		</div>
+                		</div>
+                	</div>
+                	<div class="bag">
+                		1234
+                	</div>
                     <div class="video-discuss-tool" id="video-discuss-tool">
+                    	<p class="ic-like" onclick="sendGroupLoveMsg()"></p>
+                    	<p class="ic-chat" onclick="smsPicClick()"></p>
+                    	<div class="love-count" id="user-icon-like">1</div>
                         <!--<span class="like-icon zoomIn green"></span>-->
-                        <a href="javascript:void(0);" class="video-discuss-sms" onclick="smsPicClick()"></a>
+                        <!--<a href="javascript:void(0);" class="video-discuss-sms" onclick="smsPicClick()"></a>
 
-                        <a href="javascript:void(0);" class="video-discuss-like" onclick="sendGroupLoveMsg()"></a>
-                    </div>
-                    <div class="video-discuss-form" id="video-discuss-form" style="display: none">
-                        <input type="text" class="video-discuss-input" id="send_msg_text">
-                        <a href="javascript:void(0);" class="video-discuss-face" onclick="showEmotionDialog()"></a>
-                        <button class="video-discuss-button" onclick="onSendMsg()">发送</button>
-                    </div>
-                    <div class="video-discuss-emotion" id="video-discuss-emotion" style="display: none">
-                        <div class="video-emotion-pane">
-                            <ul id="emotionUL">
-                            </ul>
-                        </div>
-                    </div>
+                        <a href="javascript:void(0);" class="video-discuss-like" onclick="sendGroupLoveMsg()"></a>-->
+                    </div>                                      
+                </div>
+                <div class="video-discuss-form" id="video-discuss-form" style="display: none">
+                    <a href="javascript:;" class="video-discuss-face" onclick="onSendMsg()">发送</a>
+                    <input placeholder="跟主播聊点什么" maxlength="50" class="video-discuss-input" id="send_msg_text">
+                    <!--<input type="text" class="video-discuss-input" id="send_msg_text">
+                    <a href="javascript:void(0);" class="video-discuss-face" onclick="showEmotionDialog()"></a>
+                    <button class="video-discuss-button" onclick="onSendMsg()">发送</button>-->
                 </div>
             </div>
         </div>
+    	<div class="goods-box" style="display: none;">
+    		<div class="goods-head">
+    			<div class="ic-number"></div>
+    			<div class="goods-number">全部宝贝&nbsp;&nbsp;<i>105</i></div>
+    			<div class="ic_shoppingcart">
+    				<i class="goods-count">5</i>
+    			</div>
+    		</div>
+    		<div class="goods-page">
+    			<div class="page-20">1-20</div>
+    			<div class="page-20">21-40</div>
+    			<div class="page-20">31-60</div>
+    			<div class="page-20">61-80</div>
+    			<div class="page-20">81-100</div>
+    			<div class="page-20">101-120</div>
+    		</div>
+    		<div class="goods-list">  			
+    			<div class="goods-item">
+    				<div class="g-pic">
+    					<img src="img/back-img2.png" />
+    				</div>
+    				<div class="g-describe">
+    					<div class="g-word">2018春夏新款中长款雪纺衫连衣裙荷叶边碎花性感沙滩群</div>
+    					<div class="g-price">&yen;&nbsp;<i class="price">59.00</i>&nbsp;<i>起</i></div>
+    					<div class="g-btns">
+    						<div class="g-try">试穿一下</div>
+    						<div class="g-add">加入拿货车</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="goods-item">
+    				<div class="g-pic">
+    					<img src="img/back-img2.png" />
+    				</div>
+    				<div class="g-describe">
+    					<div class="g-word">2018春夏新款中长款雪纺衫连衣裙荷叶边碎花性感沙滩群</div>
+    					<div class="g-price">&yen;&nbsp;<i class="price">59.00</i>&nbsp;<i>起</i></div>
+    					<div class="g-btns">
+    						<div class="g-try">试穿一下</div>
+    						<div class="g-add">加入拿货车</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="goods-item">
+    				<div class="g-pic">
+    					<img src="img/back-img2.png" />
+    				</div>
+    				<div class="g-describe">
+    					<div class="g-word">2018春夏新款中长款雪纺衫连衣裙荷叶边碎花性感沙滩群</div>
+    					<div class="g-price">&yen;&nbsp;<i class="price">59.00</i>&nbsp;<i>起</i></div>
+    					<div class="g-btns">
+    						<div class="g-try">试穿一下</div>
+    						<div class="g-add">加入拿货车</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="goods-item">
+    				<div class="g-pic">
+    					<img src="img/back-img2.png" />
+    				</div>
+    				<div class="g-describe">
+    					<div class="g-word">2018春夏新款中长款雪纺衫连衣裙荷叶边碎花性感沙滩群</div>
+    					<div class="g-price">&yen;&nbsp;<i class="price">59.00</i>&nbsp;<i>起</i></div>
+    					<div class="g-btns">
+    						<div class="g-try">试穿一下</div>
+    						<div class="g-add">加入拿货车</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="goods-item">
+    				<div class="g-pic">
+    					<img src="img/back-img2.png" />
+    				</div>
+    				<div class="g-describe">
+    					<div class="g-word">2018春夏新款中长款雪纺衫连衣裙荷叶边碎花性感沙滩群</div>
+    					<div class="g-price">&yen;&nbsp;<i class="price">59.00</i>&nbsp;<i>起</i></div>
+    					<div class="g-btns">
+    						<div class="g-try">试穿一下</div>
+    						<div class="g-add">加入拿货车</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
     </div>
     <!--聊天部分 end-->
 </div>
@@ -153,7 +344,8 @@
 <script type="text/javascript" src="js/demo_base.js"></script>
 <script type="text/javascript" src="js/demo_group_notice.js"></script>
 <script src="//imgcache.qq.com/open/qcloud/video/vcplayer/TcPlayer-2.2.2.js"></script>
-<!--<script src="js/index.js"></script>-->
+<script src="js/index.js?time = New Data()"></script>
+<script src="lib/js/jquery-weui.js"></script>
 <script type="text/javascript">
 	/*var x = document.getElementById("myVideo"); 
 	$('.pause').on('click',function(){
@@ -166,7 +358,7 @@
 	})*/
 	
 	var player = new TcPlayer('id_test_video', {
-		"m3u8": "http://wssource.hls.inke.cn/live/1526180435322045/playlist.m3u8", //请替换成实际可用的播放地址
+		"m3u8": "http://wssource.hls.inke.cn/live/1528956189910634/playlist.m3u8", //请替换成实际可用的播放地址
 		"autoplay" : false,      //iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
 		"coverpic" : "https://img2.inke.cn/MTQ5ODgyMjM5MzE4OCMxNDEjanBn.jpg",
 		"width" :  '100%',//视频的显示宽度，请尽量使用视频分辨率宽度
@@ -187,8 +379,7 @@
 	$('video').css('object-fit','cover') ;
 	
 	
-	
-	$('.video-page').bind('click','.pause',function(){
+	$('.video-pane').on('click','.pause',function(e){
 		player.play() ;
 	})
 	
@@ -207,10 +398,10 @@
     var accountMode = 0;
 
     //官方 demo appid,需要开发者自己修改（托管模式）
-    var sdkAppID = 1400073803;
-    var accountType = 792;
+    var sdkAppID = 1400098433;
+    var accountType = 28097;
 
-    var avChatRoomId = '@TGS#aKQQESFFC';  //默认房间群ID，群类型必须是直播聊天室（AVChatRoom），这个为官方测试ID(托管模式)
+    var avChatRoomId = 'group_id_284';  //默认房间群ID，群类型必须是直播聊天室（AVChatRoom），这个为官方测试ID(托管模式)
 
     if (webim.Tool.getQueryString("groupid")) {
         avChatRoomId = webim.Tool.getQueryString("groupid");//用户自定义房间群id
@@ -229,9 +420,9 @@
         'sdkAppID': sdkAppID, //用户所属应用id,必填
         'appIDAt3rd': sdkAppID, //用户所属应用id，必填
         'accountType': accountType, //用户所属应用帐号类型，必填
-        'identifier': "testusername", //当前用户ID,必须是否字符串类型，选填
+        'identifier': "test1", //当前用户ID,必须是否字符串类型，选填
         'identifierNick': "null", //当前用户昵称，选填
-        'userSig': "eJxNzF9vgjAUh*Hv0utl6R8qZsmu0GmDM1PpEq5IpQfWINi0xanLvvsIYdlu3*f8zhfKNodHVZbnvgtFuFlATwijhzEbDV0wlQE3xAA*9B5cp1qYXFlrdKFCwZz*N-O6KUYaGokwxjGbYzYhXK1xUKgqjF8J55wOJ5NewHlz7gagmHBCGcZ-GEwL44RGEeez6PelN-WQX5cyEbuF2n2SG3H3aJHFaZMc2355stLr5EVe3fbSNmkeb2EPhtaizgS9px*2Wm3W8xWX5r3iuah7Ig6BhfK43kudWf-WzE75M-r*AbH8W74_", //当前用户身份凭证，必须是字符串类型，选填
+        'userSig': "eJxFkF1PgzAYhf8LtxrtB1Uw2YXB6UiYjs9Nb5pCO1KRlpSK24z-XSQs3j5P3pxz3m8ni9Ir1nWSU2YpNty5c4BzOWFx6KQRlO2tMCOGhBAEwNkOwvRSq1EgAAlEGIB-KblQVu7ldGhFb*EselmPZL3MgzAO2vKRHdKqWPOVfs5weG1ChrrkNKRhrgKsS*gWFyreJB9fYf0WD-fLRNU5x9td0w7*i58eUV1mcdHgSD9tUrDaRe8PxHtdnMN4Q6dtf*3dsZ3vuRjP0spWTKvQrYcgJjczZ1WlP5Wl9tiJ6Rk-v581V34_", //当前用户身份凭证，必须是字符串类型，选填
         'headurl': 'img/2016.gif'//当前用户默认头像，选填
     };
     //监听（多终端同步）群系统消息方法，方法都定义在demo_group_notice.js文件中
